@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="styles.css">
+
+<html>
+    <body>
+        <div id='paletteContainer'>
+            <div id='paletteHead'>Click below to change color</div>
+            <div id='palette'>
+                <div id='red' class='colordiv'></div>
+                <div id='orange' class='colordiv'></div>
+                <div id='yellow' class='colordiv'></div>
+                <div id='green' class='colordiv'></div>
+                <div id='blue' class='colordiv'></div>
+                <div id='purple' class='colordiv'></div>
+                <div id='pink' class='colordiv'></div>
+                <div id='black' class='colordiv'></div>
+            </div>
+            <div id='white' class='colordiv'><img src='images/eraser.jpg' id='imgEraser'></div>
+        </div>
+
+        <div id="container">
+            <div id="divHead">
+                <h1>Input a number and press the button to reform the grid!</h1>
+                <input type='number' id='txtGrid' name='txtGrid' value=0>
+                <button name='btnReform' id="btnReform">Reform!</button>
+            </div>
+            <div id="divGrid">
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    //setting important const & variables
+    const btnReform = document.querySelector('#btnReform');
+    const txtGrid = document.querySelector('#txtGrid');
+    const divGrid = document.querySelector('#divGrid');
+    const colordivs = document.querySelectorAll('.colordiv');
+    let cellColor = 'black';
+    
+    function setGridSize(gridSize) { //change CSS of divGrid so that it holds the appropriate amount of columns and rows to house cells
+        divGrid.setAttribute('style', `grid-template-columns: repeat(${gridSize}, 1fr); grid-template-rows: repeat(${gridSize}, 1fr);`);
+    } 
+
+    function generateCells() {
+        const cells = document.querySelectorAll('.cell');
+        cells.forEach(cell => { //reset each cell to white on grid reset
+            cell.style.backgroundColor = 'white';
+        });      
+        cells.forEach(cell => { //add hover effect to cells so they turn black on mouseover
+        cell.addEventListener('mouseover', () => {
+            cell.style.backgroundColor = cellColor;
+        });
+    });
+    }
+
+    function createGrid(cellNum) {  //get the grid size from txtGrid, then use it to generate a number of cells equal to the square.
+        
+        setGridSize(cellNum);   //set the grid width and height to the input number
+        
+        for (let i=0; i<cellNum**2; i++) {  //generate the number of cells, equal to the gridSize squared
+            let divCell = document.createElement('div')
+            divCell.className = 'cell';
+            divGrid.append(divCell);
+        }
+        generateCells();
+    }
+    
+    function generatePalette() {
+        colordivs.forEach(colordiv => {
+            colordiv.style.backgroundColor = colordiv.id;
+            colordiv.addEventListener('mouseenter', () => {
+                    colordiv.classList.add('hovering')
+                });
+            colordiv.addEventListener('mouseleave', () => {
+                    colordiv.classList.remove('hovering')
+                });
+            colordiv.addEventListener('mousedown', () => {
+                    colordiv.classList.add('pressed-down')
+                    cellColor = colordiv.id;
+                });
+            colordiv.addEventListener('mouseup', () => {
+                    colordiv.classList.remove('pressed-down')
+                });
+            });
+    }
+
+    btnReform.addEventListener('click', () => {
+        divGrid.textContent = ''; //clears all cells inside of divGrid. why does this work? no idea.
+        gridSize = parseInt(txtGrid.value);
+        if (0 < gridSize && gridSize <= 64) { //check to see if gridSize is between 1-64
+            createGrid(gridSize);
+        } else {
+            setGridSize(1);
+            divGrid.textContent = 'Please enter a number between from 1 to 64.';
+        }
+    });
+    
+    generatePalette();
+
+</script>

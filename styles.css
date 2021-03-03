@@ -1,0 +1,76 @@
+html {
+    font-family: 'Helvetica', sans-serif;
+}
+div {
+    border-style: solid;
+    border-color:black;
+    padding: 2px;
+}
+#paletteContainer {
+    border: solid 3px black;
+    border-radius: 3%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    left: 20px;
+    top: 80px;
+    bottom: 80px;
+    width: 200px;
+    height: 400px;
+}
+#paletteHead {
+    border-color: white;
+    text-align: center;
+}
+#palette {
+    border-color: white;
+    display: inline-grid;
+    height: 290px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 5px;
+}
+#txtGrid {
+    width: 100px;
+}
+#container {
+    width: 950px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+#divHead {
+    border: none;
+    height: auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#divGrid {
+    margin: auto;
+    width: 700px;
+    height: 700px;
+    display: inline-grid;
+}
+#imgEraser {
+    max-width: 100%;
+    max-height: auto;
+}
+.cell {
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+}
+.colordiv {
+    border: solid 1px black;
+    border-radius: 5%;
+}
+.hovering {
+    transform: scale(1.1);
+}
+.pressed-down {
+    transform: scale(0.9);
+}
